@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "employee-api-collection",
+		"name": "Employee Management API",
+		"description": "API for Employee Management System - PT Aksamedia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    const response = pm.response.json();",
+							"    pm.environment.set(\"auth_token\", response.data.token);",
+							"    pm.test(\"Login successful\", function () {",
+							"        pm.expect(response.status).to.eql(\"success\");",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"pastibisa\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			}
+		},
+		{
+			"name": "2. Get Divisions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/divisions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"divisions"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "3. Get Employees",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/employees",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"employees"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "division_id",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "4. Create Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "John Doe",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "+6281234567890",
+							"type": "text"
+						},
+						{
+							"key": "division",
+							"value": "",
+							"description": "UUID dari division",
+							"type": "text"
+						},
+						{
+							"key": "position",
+							"value": "Backend Developer",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"value": "",
+							"description": "Upload file gambar",
+							"type": "file"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/employees",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"employees"
+					]
+				}
+			}
+		},
+		{
+			"name": "5. Update Employee (JSON)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Updated Employee Name\",\n    \"phone\": \"+6281234567999\",\n    \"division\": \"01981bdf-279c-72e0-8dfd-4332c5235aa8\",\n    \"position\": \"Senior Backend Developer\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/employees/{employee_id}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"employees",
+						"{employee_id}"
+					]
+				}
+			}
+		},
+		{
+			"name": "5b. Update Employee (With File Upload)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Updated Employee Name",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "+6281234567999",
+							"type": "text"
+						},
+						{
+							"key": "division",
+							"value": "",
+							"description": "UUID dari division",
+							"type": "text"
+						},
+						{
+							"key": "position",
+							"value": "Senior Backend Developer",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"value": "",
+							"description": "Upload file gambar (optional)",
+							"type": "file"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/employees/{employee_id}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"employees",
+						"{employee_id}"
+					]
+				}
+			}
+		},
+		{
+			"name": "6. Delete Employee",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/employees/{employee_id}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"employees",
+						"{employee_id}"
+					]
+				}
+			}
+		},
+		{
+			"name": "7. Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/logout",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000/api"
+		}
+	]
+}

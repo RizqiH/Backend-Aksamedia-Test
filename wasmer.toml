@@ -1,0 +1,35 @@
+[package]
+name = "backend"
+version = "0.1.0"
+description = "Employee Management API - Laravel Backend"
+
+[dependencies]
+"php/php" = "=8.3.4"
+
+[fs]
+"/app" = "."
+"/tmp" = "tmp"
+"/config" = "config"
+
+[[command]]
+name = "run"
+module = "php/php:php"
+runner = "wasi"
+
+[command.annotations.wasi]
+main-args = [
+    "-t", "/app/public",
+    "-S", "localhost:8080",
+    "/app/public/index.php"
+]
+env = [
+    "PHPRC=/config/",
+    "APP_ENV=production",
+    "APP_DEBUG=false",
+    "DB_CONNECTION=mysql",
+    "CACHE_DRIVER=array",
+    "SESSION_DRIVER=array",
+    "QUEUE_CONNECTION=sync",
+    "LOG_CHANNEL=stderr",
+    "LOG_LEVEL=info"
+]

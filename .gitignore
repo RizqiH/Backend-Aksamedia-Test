@@ -1,0 +1,68 @@
+# Dependencies
+/node_modules
+/vendor
+
+# Build outputs
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+
+# Laravel specific
+/bootstrap/cache/*.php
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+/coverage
+/.phpunit.result.cache
+.phpunit.cache
+
+# Temporary files
+*.tmp
+*.temp
+/tmp
+
+# Package files
+*.tgz
+*.tar.gz
+
+# Laravel Mix
+/public/css
+/public/js
+
+# Laravel Sail
+docker-compose.override.yml
+
+# Backup files
+*.bak
+*.backup
+
+# Cache and compiled files
+.php_cs.cache
+.phpunit.result.cache

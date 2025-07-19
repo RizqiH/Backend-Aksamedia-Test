@@ -1,0 +1,7 @@
+name: backend
+app_id: da_2dAIdtrULOGw
+owner: rizkiamanan
+package: '.'
+scaling:
+  mode: single_concurrency
+kind: wasmer.io/App.v0
